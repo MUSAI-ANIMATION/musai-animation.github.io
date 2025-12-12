@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的個人作品與紀錄</title>
+    <style>
+        /* --- 全域設定 --- */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft JhengHei", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- 導覽列 --- */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- 主要區塊通用設定 --- */
+        section {
+            padding: 80px 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+        }
+
+        /* --- Hero 區塊 (個人簡介) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #ece9e6, #ffffff);
+            padding-top: 60px; /* 避開 navbar */
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 10px 30px;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        /* --- 作品集區塊 --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+        
+        /* 如果你有真實圖片，請用 img 標籤取代上面的 div */
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .tags span {
+            font-size: 0.8rem;
+            background: #e1ecf4;
+            color: #39739d;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        /* --- 紀錄/文章區塊 --- */
+        .blog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .blog-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .blog-date {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-item h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- 頁尾 --- */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* --- 響應式調整 --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            nav { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <header>
+        <nav>
+            <div class="logo">MyPortfolio</div>
+            <ul class="nav-links">
+                <li><a href="#home">首頁</a></li>
+                <li><a href="#portfolio">作品集</a></li>
+                <li><a href="#blog">紀錄</a></li>
+                <li><a href="#contact">聯絡我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 首頁 / 個人簡介 -->
+    <section id="home" class="hero">
+        <h1>你好，我是 [你的名字]</h1>
+        <p>這是一個展示我個人作品、專案開發以及日常學習紀錄的空間。歡迎瀏覽我的創作。</p>
+        <a href="#portfolio" class="btn">查看作品</a>
+    </section>
+
+    <!-- 作品集 -->
+    <section id="portfolio">
+        <h2>精選作品</h2>
+        <div class="portfolio-grid">
+            <!-- 作品 1 -->
+            <article class="project-card">
+                <div class="project-img">
+                    <!-- 這裡放圖片，例如: <img src="project1.jpg" alt="專案圖片"> -->
+                    <span>專案預覽圖 (600x400)</span>
+                </div>
+                <div class="project-info">
+                    <h3>個人形象網站設計</h3>
+                    <p>使用 HTML5 與 CSS3 打造的響應式個人網站，簡潔且高效。</p>
+                    <div class="tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>Design</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 作品 2 -->
+            <article class="project-card">
+                <div class="project-img">
+                    <span>專案預覽圖 (600x400)</span>
+                </div>
+                <div class="project-info">
+                    <h3>Python 數據分析工具</h3>
+                    <p>自動化抓取股票資訊並生成每週報表的 Python 腳本。</p>
+                    <div class="tags">
+                        <span>Python</span>
+                        <span>Pandas</span>
+                        <span>Automation</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 作品 3 -->
+            <article class="project-card">
+                <div class="project-img">
+                    <span>專案預覽圖 (600x400)</span>
+                </div>
+                <div class="project-info">
+                    <h3>攝影作品集：城市角落</h3>
+                    <p>紀錄台北街頭的光影變化與人文風景。</p>
+                    <div class="tags">
+                        <span>Photography</span>
+                        <span>Art</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- 紀錄 / Blog -->
+    <section id="blog">
+        <h2>學習紀錄</h2>
+        <div class="blog-list">
+            <article class="blog-item">
+                <div class="blog-date">2023-10-27</div>
+                <h3>學習 React 的第一週心得</h3>
+                <p>今天終於搞懂了 Component 的生命週期，雖然 Hooks 讓寫法變得很不一樣，但邏輯更清晰了...</p>
+                <a href="#" style="color: var(--accent-color); font-size: 0.9rem;">閱讀更多 &rarr;</a>
+            </article>
+
+            <article class="blog-item">
+                <div class="blog-date">2023-10-15</div>
+                <h3>如何提升工作效率？</h3>
+                <p>分享幾個我最近在使用的番茄鐘工具以及 Notion 模板設定...</p>
+                <a href="#" style="color: var(--accent-color); font-size: 0.9rem;">閱讀更多 &rarr;</a>
+            </article>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer id="contact">
+        <p>&copy; 2023 [你的名字]. All Rights Reserved.</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">
+            Email: yourname@example.com | GitHub: @yourname
+        </p>
+    </footer>
+
+    <script>
+        // 簡單的平滑捲動效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
